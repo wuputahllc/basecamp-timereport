@@ -16,8 +16,7 @@
 # You must provide the start date. The end date defaults to today if not provided.
 
 # Yes, this code is not all that pretty - this was primarily a mental exercise.
-# Primarily, this was outputting all the output in a single expression at the
-# end.
+# Primarily, this refers to outputting all the output in a single expression at the end.
 
 require 'basecamp'
 require 'date'
