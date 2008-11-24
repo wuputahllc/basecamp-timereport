@@ -11,7 +11,7 @@ $ git clone git://github.com/wuputah/basecamp-timereport
 $ cd basecamp-timereport
 $ mate fetch  # put in your settings
 $ ./fetch 2008-11-01 2008-11-30
-$ happyface
+$ happyface   # see section below
 </pre>
 
 h2. What You Get
@@ -45,3 +45,13 @@ Barack Obama - change.gov
   Matt Damon                                           20.00
 ============================================================
 </pre>
+
+h2. happyface
+
+To install happyface, simply add this to your bash profile:
+
+<pre>
+alias happyface='echo :\)'
+</pre>
+
+Installing sadface is left as an exercise to the reader.
