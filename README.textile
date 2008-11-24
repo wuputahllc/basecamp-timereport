@@ -1,0 +1,47 @@
+h1. Time Report Tool for Basecamp
+
+This tool makes a summarized report of hours logged in Basecamp for any period. The summary is provided on a per person,  project, client, and project-person.
+
+The tool uses the Basecamp API to fetch the data, so you'll have to provide your account info. Open the 'fetch' shell script to do so.
+
+h2. Quick Guide
+
+<pre>
+$ git clone git://github.com/wuputah/basecamp-timereport
+$ cd basecamp-timereport
+$ mate fetch  # put in your settings
+$ ./fetch 2008-11-01 2008-11-30
+$ happyface
+</pre>
+
+h2. What You Get
+
+<pre>
+         TIME REPORT FOR 2008-11-01 TO 2008-11-30          
+========================= By Person ========================
+Johnny Appleseed                                       44.00
+Ted Stevens                                            76.67
+Matt Damon                                             20.00
+======================== By Project ========================
+Microsoft - Windows Vista                              58.00
+Apple - iPhone 3.0                                     37.00
+3DRealms - Duke Nukem Forever                           1.17
+Barack Obama - change.gov                              44.50
+======================== By Company ========================
+Microsoft                                              58.00
+Apple                                                  37.00
+3DRealms                                                1.17
+Barack Obama                                           44.50
+=================== By Person per Project ==================
+Microsoft - Windows Vista
+  Ted Stevens                                          58.00
+Apple - iPhone 3.0
+  Johnny Appleseed                                     37.00
+3DRealms - Duke Nukem Forever
+  Ted Stevens                                           1.17
+Barack Obama - change.gov
+  Johnny Appleseed                                      7.00
+  Ted Stevens                                          17.50
+  Matt Damon                                           20.00
+============================================================
+</pre>
