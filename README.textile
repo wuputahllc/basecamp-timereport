@@ -7,7 +7,7 @@ The tool uses the Basecamp API to fetch the data, so you'll have to provide your
 h2. Quick Guide
 
 <pre>
-$ git clone git://github.com/wuputah/basecamp-timereport
+$ git clone git://github.com/wuputah/basecamp-timereport.git
 $ cd basecamp-timereport
 $ mate fetch  # put in your settings
 $ ./fetch 2008-11-01 2008-11-30
