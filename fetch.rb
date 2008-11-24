@@ -79,13 +79,13 @@ puts header("TIME REPORT FOR #{start_date.strftime('%Y-%m-%d')} TO #{end_date.st
      totals[:people].
        collect { |(p, h)| [ [p['last-name'], p['first-name']], h ] }.
        sort.
-       collect { |(p, h)| sprintf "%-54s%6.02f" % [p.reverse.join(' '), h] }.
+       collect { |(p, h)| sprintf "%-53s%7.02f" % [p.reverse.join(' '), h] }.
        join("\n"),
      header('By Project'),
      totals[:projects].
        collect { |(p, h)| [ [p.company.name, p.name].join(' - '), h ] }.
        sort.
-       collect { |(p, h)| sprintf "%-54s%6.02f" % [p, h] }.
+       collect { |(p, h)| sprintf "%-53s%7.02f" % [p, h] }.
        join("\n"),
      header('By Company'),
      totals[:projects].
@@ -93,7 +93,7 @@ puts header("TIME REPORT FOR #{start_date.strftime('%Y-%m-%d')} TO #{end_date.st
          hsh.with { |hh| hh[p.company.name] += h }
        }.
        sort.
-       collect { |(p, h)| sprintf "%-54s%6.02f" % [p, h] }.
+       collect { |(p, h)| sprintf "%-53s%7.02f" % [p, h] }.
        join("\n"),
      header('By Person per Project'),
      totals[:pp].
@@ -102,7 +102,7 @@ puts header("TIME REPORT FOR #{start_date.strftime('%Y-%m-%d')} TO #{end_date.st
            [proj.company.name, proj.name].join(' - '),
            people.collect { |(p, h)| [ [p['last-name'], p['first-name'] ], h ] }.
            sort.
-           collect { |(p, h)| sprintf "  %-52s%6.02f" % [p.reverse.join(' '), h] }.
+           collect { |(p, h)| sprintf "  %-51s%7.02f" % [p.reverse.join(' '), h] }.
            join("\n")
          ]
        }.
