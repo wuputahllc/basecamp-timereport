@@ -49,10 +49,7 @@ Basecamp.establish_connection!(ENV['BASECAMP_URL'],
 start_date, end_date = ARGV.collect { |arg| Date.parse(arg) } << Date.today
 basecamp = Basecamp.new
 
-if end_date - start_date > 180
-  puts "You can only run a report for 180 day periods (for now...)"
-  exit
-elsif end_date < start_date
+if end_date < start_date
   start_date, end_date = [end_date, start_date]
 end
 
@@ -60,12 +57,19 @@ totals = { :people => Hash.new(0.0),
            :projects => Hash.new(0.0),
            :pp => Hash.new { |h, k| h[k] = Hash.new(0.0) } }
 cache = { :people => { }, :projects => { } }
-Basecamp::TimeEntry.report(:from => start_date.strftime('%Y%m%d'), :to => end_date.strftime('%Y%m%d')).each do |entry|
-  person = cache[:people][entry.person_id] ||= basecamp.person(entry.person_id)
-  project = cache[:projects][entry.project_id] ||= Basecamp::Project.find(entry.project_id)
-  totals[:people][person] += entry.hours
-  totals[:projects][project] += entry.hours
-  totals[:pp][project][person] += entry.hours
+
+cur_start_date = start_date
+until cur_start_date > end_date
+  cur_end_date = [cur_start_date + 180, end_date].min
+  Basecamp::TimeEntry.report(:from => cur_start_date.strftime('%Y%m%d'), :to => cur_end_date.strftime('%Y%m%d')).each do |entry|
+    person = cache[:people][entry.person_id] ||= basecamp.person(entry.person_id)
+    project = cache[:projects][entry.project_id] ||= Basecamp::Project.find(entry.project_id)
+    totals[:people][person] += entry.hours
+    totals[:projects][project] += entry.hours
+    totals[:pp][project][person] += entry.hours
+  end
+  # basecamp is inclusive on both ends, so you have to add an additional day here
+  cur_start_date += 181
 end
 
 # Yes, this is one expression - its ugly, but its pretty cool, too.
