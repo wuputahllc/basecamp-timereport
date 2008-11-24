@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+# This was the basis for 'fetch' - it operates on the CSV exports instead of
+# fetching the data using the Basecamp API.
+
+require 'csv'
+require 'date'
+
+for file in ARGV
+  by_person = Hash.new(0)
+  by_project = Hash.new(0)
+  dates = nil
+  headers = nil
+  CSV.open(file, 'r') do |row|
+    if headers.nil?
+      headers = row
+      next
+    end
+    by_person[row[headers.index('person')]] += row[headers.index('hours')].to_f
+    by_project[row[headers.index('project')]] += row[headers.index('hours')].to_f
+    date = Date.parse(row[headers.index('date')])
+    dates ||= [date, date]
+    if date < dates[0]
+      dates[0] = date
+    elsif date > dates[1]
+      dates[1] = date
+    end
+  end
+  puts "=" * 40
+  puts "TIME REPORT FOR #{dates[0]} TO #{dates[1]}"
+  puts "=" * 40
+  by_person.sort { |a,b| a.first <=> b.first }.each do |(p, h)|
+    puts "%-34s%6.02f" % [p, h]
+  end
+  puts "=" * 40
+  by_project.sort { |a,b| a.first <=> b.first }.each do |(p, h)|
+    puts "%-34s%6.02f" % [p, h]
+  end
+  puts "=" * 40
+end

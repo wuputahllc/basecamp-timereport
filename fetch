@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Wrapper for fetch.rb. Put your settings here, then
+# invoke this just like fetch.rb, e.g.:
+#
+#  ./fetch 2008-11-01 2008-11-15
+#
+# This file must be in the same directory as fetch.rb
+# to work unless you change the settings below.
+export BASECAMP_URL="yourbasecamp.clientsection.com"
+export BASECAMP_USERNAME="yourusername"
+export BASECAMP_PASSWORD="yourpassword"
+
+# pushd/popd to the directory where this script is. If you
+# want to put fetch.rb somewhere else, change `dirname $_`
+# to the directory you put fetch.rb in.
+pushd `dirname $_` >/dev/null
+ruby fetch.rb $@
+popd >/dev/null
